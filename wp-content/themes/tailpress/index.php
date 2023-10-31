@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="container mx-auto my-8 font-cursive">
+<div class="px-1 my-8 font-cursive">
 
 	<?php if ( have_posts() ) : ?>
 		<?php

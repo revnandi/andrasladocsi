@@ -12,7 +12,7 @@ mix.webpackConfig({
     ] }
 });
 
-mix.js('resources/js/app.js', 'js');
+mix.ts('resources/ts/app.ts', 'js');
 
 mix.postCss("resources/css/app.css", "css");
 

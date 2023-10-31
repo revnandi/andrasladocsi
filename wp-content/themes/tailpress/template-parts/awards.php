@@ -10,10 +10,10 @@ $query = new WP_Query($args);
 $posts = get_posts($args);
 
 if ($query->have_posts()): ?>
-  <section>
-    <h2 class="text-xl font-display">Awards / Grants</h2>
+  <section class="mb-6">
+    <h2 class="font-display">Awards / Grants</h2>
     <?php while ($query->have_posts()): $query->the_post(); ?>
-      <div class="italic">
+      <div class="italic font-cursive">
         <?php the_field('year'); ?>
         <?php the_title(); ?>
       </div>

@@ -126,3 +126,4 @@ function google_fonts()
 	wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Instrument+Sans&display=swap', [], null );
 }
 add_action('wp_enqueue_scripts', 'google_fonts');
+add_action('admin_enqueue_scripts', 'google_fonts');

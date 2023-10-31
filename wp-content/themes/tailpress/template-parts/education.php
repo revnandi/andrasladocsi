@@ -10,8 +10,8 @@ $query = new WP_Query($args);
 $posts = get_posts($args);
 
 if ($query->have_posts()): ?>
-  <section>
-    <h2 class="text-xl font-display">Education</h2>
+  <section class="mb-6">
+    <h2 class="font-display">Education</h2>
     <?php while ($query->have_posts()): $query->the_post(); ?>
       <div class="italic">
         <?php the_field('year'); ?>

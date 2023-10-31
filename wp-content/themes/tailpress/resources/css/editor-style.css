@@ -16,3 +16,10 @@ body {
 .wp-block[data-align=full] {
     @apply max-w-full;
 }
+
+.mce-content-body {
+    font-family: 'Instrument Sans', sans-serif;
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Instrument Sans', sans-serif;
+    }
+}
