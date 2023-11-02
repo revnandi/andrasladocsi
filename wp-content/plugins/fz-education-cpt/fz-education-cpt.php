@@ -50,7 +50,7 @@ function education_cpt() {
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
-		'menu_position'         => 20,
+		'menu_position'         => 35,
 		'menu_icon'             => 'dashicons-welcome-learn-more',
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,

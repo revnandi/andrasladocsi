@@ -3782,6 +3782,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener('load', function () {
+  var _this = this;
   (0,unlazy__WEBPACK_IMPORTED_MODULE_2__.lazyLoad)();
   var gallery = new _gallery__WEBPACK_IMPORTED_MODULE_0__.Gallery('andrasladocsi_gallery', {
     rewind: true,
@@ -3792,6 +3793,28 @@ window.addEventListener('load', function () {
       page: 'w-4 h-4 bg-black rounded-full [&.is-active]:bg-turquoise'
     }
     // dots: '#lt_small_carousel_dots'
+  });
+
+  var ongoingLink = this.document.getElementById('al_group_exhibition_link');
+  ongoingLink === null || ongoingLink === void 0 ? void 0 : ongoingLink.addEventListener('mousemove', function (e) {
+    var newX = e.clientX;
+    var newY = e.clientY;
+    var image = _this.document.getElementById('al_group_exhibition_link_image');
+    if (image) {
+      var imageLeft = newX - image.offsetWidth;
+      if (imageLeft < 0) {
+        imageLeft = 0;
+      }
+      image.style.left = imageLeft + 'px';
+      image.style.top = newY + 'px';
+    }
+  });
+  ongoingLink === null || ongoingLink === void 0 ? void 0 : ongoingLink.addEventListener('mouseleave', function (e) {
+    var image = _this.document.getElementById('al_group_exhibition_link_image');
+    if (image) {
+      image.style.left = '0';
+      image.style.top = '0';
+    }
   });
 });
 

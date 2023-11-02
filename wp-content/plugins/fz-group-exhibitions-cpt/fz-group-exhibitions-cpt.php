@@ -50,7 +50,7 @@ function group_exhibitions_cpt() {
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
-		'menu_position'         => 25,
+		'menu_position'         => 40,
 		'menu_icon'             => 'dashicons-groups',
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,

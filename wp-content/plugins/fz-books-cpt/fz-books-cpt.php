@@ -1,27 +1,27 @@
 <?php
 
 /**
- * Plugin Name: FZ Publications CPT
- * Description: Adds custom Publications post type
+ * Plugin Name: FZ Books CPT
+ * Description: Adds custom Books post type
  * Version: 1.0
  * Author: Studio Freizeit
  * Author URI: freizeit.hu
  */
 
 // Register Custom Post Type
-function publications_cpt() {
+function books_cpt() {
 
 	$labels = array(
-		'name'                  => _x( 'Publications', 'Post Type General Name', 'text_domain' ),
-		'singular_name'         => _x( 'Publication', 'Post Type Singular Name', 'text_domain' ),
-		'menu_name'             => __( 'Publications', 'text_domain' ),
-		'name_admin_bar'        => __( 'Publications', 'text_domain' ),
+		'name'                  => _x( 'Books', 'Post Type General Name', 'text_domain' ),
+		'singular_name'         => _x( 'Book', 'Post Type Singular Name', 'text_domain' ),
+		'menu_name'             => __( 'Books', 'text_domain' ),
+		'name_admin_bar'        => __( 'Books', 'text_domain' ),
 		'archives'              => __( 'Item Archives', 'text_domain' ),
 		'attributes'            => __( 'Item Attributes', 'text_domain' ),
 		'parent_item_colon'     => __( 'Parent Item:', 'text_domain' ),
-		'all_items'             => __( 'All Publications', 'text_domain' ),
-		'add_new_item'          => __( 'Add new Publications Item', 'text_domain' ),
-		'add_new'               => __( 'Add Publications Item', 'text_domain' ),
+		'all_items'             => __( 'All Books', 'text_domain' ),
+		'add_new_item'          => __( 'Add new Books Item', 'text_domain' ),
+		'add_new'               => __( 'Add Books Item', 'text_domain' ),
 		'new_item'              => __( 'New Item', 'text_domain' ),
 		'edit_item'             => __( 'Edit Item', 'text_domain' ),
 		'update_item'           => __( 'Update Item', 'text_domain' ),
@@ -41,7 +41,7 @@ function publications_cpt() {
 		'filter_items_list'     => __( 'Filter items list', 'text_domain' ),
 	);
 	$args = array(
-		'label'                 => __( 'Publications', 'text_domain' ),
+		'label'                 => __( 'Books', 'text_domain' ),
 		'description'           => __( 'Post Type Description', 'text_domain' ),
 		'labels'                => $labels,
 		'supports'              => array( 'title' ),
@@ -50,8 +50,8 @@ function publications_cpt() {
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
-		'menu_position'         => 50,
-		'menu_icon'             => 'dashicons-id-alt',
+		'menu_position'         => 30,
+		'menu_icon'             => 'dashicons-book-alt',
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
 		'can_export'            => true,
@@ -61,7 +61,7 @@ function publications_cpt() {
 		'capability_type'       => 'page',
 		'show_in_rest'          => true,
 	);
-	register_post_type( 'publications', $args );
+	register_post_type( 'books', $args );
 
 }
-add_action( 'init', 'publications_cpt', 0 );
+add_action( 'init', 'books_cpt', 0 );
