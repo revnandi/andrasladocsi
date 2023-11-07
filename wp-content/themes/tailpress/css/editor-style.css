@@ -61,6 +61,10 @@
 .m-8 {
     margin: 2rem;
 }
+.mx-2 {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
 .mx-auto {
     margin-left: auto;
     margin-right: auto;
@@ -72,18 +76,6 @@
 .my-8 {
     margin-top: 2rem;
     margin-bottom: 2rem;
-}
-.my-1 {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-}
-.mx-1 {
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
-}
-.mx-2 {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
 }
 .mb-1 {
     margin-bottom: 0.25rem;
@@ -103,20 +95,17 @@
 .mt-14 {
     margin-top: 3.5rem;
 }
-.ml-1 {
-    margin-left: 0.25rem;
-}
-.mr-1 {
-    margin-right: 0.25rem;
-}
-.mr-2 {
-    margin-right: 0.5rem;
+.mt-6 {
+    margin-top: 1.5rem;
 }
 .block {
     display: block;
 }
 .inline-block {
     display: inline-block;
+}
+.inline {
+    display: inline;
 }
 .flex {
     display: flex;
@@ -133,14 +122,23 @@
 .h-1 {
     height: 0.25rem;
 }
+.h-2 {
+    height: 0.5rem;
+}
 .h-32 {
     height: 8rem;
 }
 .h-4 {
     height: 1rem;
 }
+.h-\[75vh\] {
+    height: 75vh;
+}
 .h-full {
     height: 100%;
+}
+.max-h-\[75vh\] {
+    max-height: 75vh;
 }
 .min-h-screen {
     min-height: 100vh;
@@ -153,6 +151,9 @@
 }
 .w-4 {
     width: 1rem;
+}
+.w-auto {
+    width: auto;
 }
 .w-full {
     width: 100%;
@@ -185,6 +186,9 @@
 .flex-wrap {
     flex-wrap: wrap;
 }
+.items-start {
+    align-items: flex-start;
+}
 .items-center {
     align-items: center;
 }
@@ -196,6 +200,11 @@
 }
 .gap-4 {
     gap: 1rem;
+}
+.space-x-1 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(0.25rem * var(--tw-space-x-reverse));
+    margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;

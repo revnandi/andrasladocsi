@@ -127,3 +127,27 @@ function google_fonts()
 }
 add_action('wp_enqueue_scripts', 'google_fonts');
 add_action('admin_enqueue_scripts', 'google_fonts');
+
+
+function custom_post_subpage_template($template) {
+  if (is_page() && $post = get_queried_object()) {
+    $post_parent = $post->post_parent;
+
+    // Check if the parent page is a post and has the slug 'index'.
+    if ($post_parent && get_post_type($post_parent) === 'post' && get_post_field('post_name', $post_parent) === 'index') {
+      $new_template = locate_template(array('single-post-subpage.php'));
+      if (!empty($new_template)) {
+        return $new_template;
+      }
+    }
+  }
+
+  return $template;
+}
+add_filter('template_include', 'custom_post_subpage_template');
+
+
+function flush_rewrite_rules_on_activation() {
+  flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'flush_rewrite_rules_on_activation');

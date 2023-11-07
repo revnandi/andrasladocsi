@@ -19,22 +19,25 @@
 		<?php do_action('tailpress_header'); ?>
 
 		<header>
+			<?php if (is_front_page()) { ?>
+				<div class="fixed top-0 left-0 flex items-center justify-between w-full px-1">
+					<div>
+						<?php if (has_custom_logo()) { ?>
+							<?php the_custom_logo(); ?>
+						<?php } else { ?>
+							<a href="<?php echo get_bloginfo('url'); ?>" class="text-lg font-display">
+								<h1>
+									<?php echo get_bloginfo('name'); ?>
+								</h1>
+							</a>
 
-			<div class="fixed top-0 left-0 flex items-center justify-between w-full px-1">
-				<div>
-					<?php if (has_custom_logo()) { ?>
-						<?php the_custom_logo(); ?>
-					<?php } else { ?>
-						<a href="<?php echo get_bloginfo('url'); ?>" class="text-lg font-display">
-							<h1><?php echo get_bloginfo('name'); ?></h1>
-						</a>
-
-					<?php } ?>
+						<?php } ?>
+					</div>
 				</div>
-			</div>
+			<?php } ?>
 		</header>
 
-		<div id="content" class="flex-grow mt-14 site-content">
+		<div id="content" class="flex-grow site-content <?php if(is_front_page()){ echo 'mt-14'; } ?>">
 
 			<?php do_action('tailpress_content_start'); ?>
 

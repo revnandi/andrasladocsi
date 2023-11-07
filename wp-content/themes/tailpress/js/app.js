@@ -1,6 +1,252 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@splidejs/splide-extension-url-hash/dist/js/splide-extension-url-hash.esm.js":
+/*!***************************************************************************************************!*\
+  !*** ./node_modules/@splidejs/splide-extension-url-hash/dist/js/splide-extension-url-hash.esm.js ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "URLHash": () => (/* binding */ URLHash)
+/* harmony export */ });
+/*!
+ * @splidejs/splide-extension-url-hash
+ * Version  : 0.3.0
+ * License  : MIT
+ * Copyright: 2022 Naotoshi Fujita
+ */
+function empty(array) {
+  array.length = 0;
+}
+
+function slice$1(arrayLike, start, end) {
+  return Array.prototype.slice.call(arrayLike, start, end);
+}
+
+function apply$1(func) {
+  return func.bind.apply(func, [null].concat(slice$1(arguments, 1)));
+}
+
+function typeOf$1(type, subject) {
+  return typeof subject === type;
+}
+
+var isArray = Array.isArray;
+apply$1(typeOf$1, "function");
+apply$1(typeOf$1, "string");
+apply$1(typeOf$1, "undefined");
+
+function toArray(value) {
+  return isArray(value) ? value : [value];
+}
+
+function forEach(values, iteratee) {
+  toArray(values).forEach(iteratee);
+}
+
+var ownKeys = Object.keys;
+
+function forOwn(object, iteratee, right) {
+  if (object) {
+    var keys = ownKeys(object);
+    keys = right ? keys.reverse() : keys;
+
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+
+      if (key !== "__proto__") {
+        if (iteratee(object[key], key) === false) {
+          break;
+        }
+      }
+    }
+  }
+
+  return object;
+}
+
+function assign(object) {
+  slice$1(arguments, 1).forEach(function (source) {
+    forOwn(source, function (value, key) {
+      object[key] = source[key];
+    });
+  });
+  return object;
+}
+
+function EventBinder() {
+  var listeners = [];
+
+  function bind(targets, events, callback, options) {
+    forEachEvent(targets, events, function (target, event, namespace) {
+      var isEventTarget = ("addEventListener" in target);
+      var remover = isEventTarget ? target.removeEventListener.bind(target, event, callback, options) : target["removeListener"].bind(target, callback);
+      isEventTarget ? target.addEventListener(event, callback, options) : target["addListener"](callback);
+      listeners.push([target, event, namespace, callback, remover]);
+    });
+  }
+
+  function unbind(targets, events, callback) {
+    forEachEvent(targets, events, function (target, event, namespace) {
+      listeners = listeners.filter(function (listener) {
+        if (listener[0] === target && listener[1] === event && listener[2] === namespace && (!callback || listener[3] === callback)) {
+          listener[4]();
+          return false;
+        }
+
+        return true;
+      });
+    });
+  }
+
+  function dispatch(target, type, detail) {
+    var e;
+    var bubbles = true;
+
+    if (typeof CustomEvent === "function") {
+      e = new CustomEvent(type, {
+        bubbles: bubbles,
+        detail: detail
+      });
+    } else {
+      e = document.createEvent("CustomEvent");
+      e.initCustomEvent(type, bubbles, false, detail);
+    }
+
+    target.dispatchEvent(e);
+    return e;
+  }
+
+  function forEachEvent(targets, events, iteratee) {
+    forEach(targets, function (target) {
+      target && forEach(events, function (events2) {
+        events2.split(" ").forEach(function (eventNS) {
+          var fragment = eventNS.split(".");
+          iteratee(target, fragment[0], fragment[1]);
+        });
+      });
+    });
+  }
+
+  function destroy() {
+    listeners.forEach(function (data) {
+      data[4]();
+    });
+    empty(listeners);
+  }
+
+  return {
+    bind: bind,
+    unbind: unbind,
+    dispatch: dispatch,
+    destroy: destroy
+  };
+}
+var EVENT_ACTIVE = "active";
+var EVENT_DESTROY = "destroy";
+
+function EventInterface(Splide2) {
+  var bus = Splide2 ? Splide2.event.bus : document.createDocumentFragment();
+  var binder = EventBinder();
+
+  function on(events, callback) {
+    binder.bind(bus, toArray(events).join(" "), function (e) {
+      callback.apply(callback, isArray(e.detail) ? e.detail : []);
+    });
+  }
+
+  function emit(event) {
+    binder.dispatch(bus, event, slice$1(arguments, 1));
+  }
+
+  if (Splide2) {
+    Splide2.event.on(EVENT_DESTROY, binder.destroy);
+  }
+
+  return assign(binder, {
+    bus: bus,
+    on: on,
+    off: apply$1(binder.unbind, bus),
+    emit: emit
+  });
+}
+
+function slice(arrayLike, start, end) {
+  return Array.prototype.slice.call(arrayLike, start, end);
+}
+
+function apply(func) {
+  return func.bind(null, ...slice(arguments, 1));
+}
+
+function typeOf(type, subject) {
+  return typeof subject === type;
+}
+apply(typeOf, "function");
+apply(typeOf, "string");
+apply(typeOf, "undefined");
+
+function getAttribute(elm, attr) {
+  return elm.getAttribute(attr);
+}
+
+const HASH_ATTRIBUTE_NAME = "data-splide-hash";
+
+function URLHash(Splide2, Components2, options) {
+  const { on, bind } = EventInterface(Splide2);
+  const { setIndex, go } = Components2.Controller;
+  function setup() {
+    const index = convertHashToIndex(location.hash);
+    setIndex(index > -1 ? index : options.start || 0);
+  }
+  function mount() {
+    on(EVENT_ACTIVE, onActive);
+    bind(window, "hashchange", onHashChange);
+  }
+  function onActive(Slide) {
+    const hash = getAttribute(Slide.slide, HASH_ATTRIBUTE_NAME);
+    if (hash) {
+      location.hash = hash;
+    } else {
+      if (history) {
+        history.replaceState(null, null, " ");
+      } else {
+        location.hash = "";
+      }
+    }
+  }
+  function onHashChange() {
+    const index = convertHashToIndex(location.hash);
+    if (index > -1) {
+      go(index);
+    }
+  }
+  function convertHashToIndex(hash) {
+    hash = hash.replace("#", "");
+    if (hash) {
+      const { slides } = Components2.Elements;
+      for (let i = 0; i < slides.length; i++) {
+        if (getAttribute(slides[i], HASH_ATTRIBUTE_NAME) === hash) {
+          return i;
+        }
+      }
+    }
+    return -1;
+  }
+  return {
+    setup,
+    mount
+  };
+}
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@splidejs/splide/dist/js/splide.esm.js":
 /*!*************************************************************!*\
   !*** ./node_modules/@splidejs/splide/dist/js/splide.esm.js ***!
@@ -3782,39 +4028,94 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener('load', function () {
-  var _this = this;
   (0,unlazy__WEBPACK_IMPORTED_MODULE_2__.lazyLoad)();
   var gallery = new _gallery__WEBPACK_IMPORTED_MODULE_0__.Gallery('andrasladocsi_gallery', {
     rewind: true,
     type: 'fade',
     pagination: false,
+    arrows: false,
+    perPage: 1,
     classes: {
-      pagination: 'z-10 absolute bottom-6 left-11 flex justify-center py-2 space-x-2 [&>li]:h-fit [&>li]:flex',
-      page: 'w-4 h-4 bg-black rounded-full [&.is-active]:bg-turquoise'
+      // pagination: 'z-10 absolute bottom-6 left-11 flex justify-center py-2 space-x-2 [&>li]:h-fit [&>li]:flex',
+      // page: 'w-4 h-4 bg-black rounded-full [&.is-active]:bg-turquoise'
     }
     // dots: '#lt_small_carousel_dots'
   });
 
-  var ongoingLink = this.document.getElementById('al_group_exhibition_link');
-  ongoingLink === null || ongoingLink === void 0 ? void 0 : ongoingLink.addEventListener('mousemove', function (e) {
-    var newX = e.clientX;
-    var newY = e.clientY;
-    var image = _this.document.getElementById('al_group_exhibition_link_image');
-    if (image) {
-      var imageLeft = newX - image.offsetWidth;
-      if (imageLeft < 0) {
-        imageLeft = 0;
-      }
-      image.style.left = imageLeft + 'px';
-      image.style.top = newY + 'px';
+  gallery.init();
+  console.log(gallery.getLength());
+  // this.setInterval(() => gallery.next(), 1000)
+  var counterCurrent = this.document.getElementById('andrasladocsi_gallery_counter_current');
+  var counterTotal = this.document.getElementById('andrasladocsi_gallery_counter_total');
+  var ongoingLinks = this.document.querySelectorAll('.al_group_exhibition_link');
+  var motionLinks = this.document.querySelectorAll('.al_motion_link');
+  if (counterTotal) counterTotal.innerHTML = gallery.getLength().toString();
+  if (counterCurrent) counterCurrent.innerHTML = '1';
+  gallery.on('move', function (index, prev, dest) {
+    if (counterCurrent) counterCurrent.innerHTML = (index + 1).toString();
+  });
+  gallery.on('click', function (slide, event) {
+    console.log(slide);
+    var target = event.target;
+    var rect = target.getBoundingClientRect();
+    var clickedX = event.clientX - rect.left;
+    if (clickedX < rect.width / 2) {
+      console.log('Left half clicked');
+      gallery.prev();
+    } else {
+      console.log('Right half clicked');
+      gallery.next();
     }
   });
-  ongoingLink === null || ongoingLink === void 0 ? void 0 : ongoingLink.addEventListener('mouseleave', function (e) {
-    var image = _this.document.getElementById('al_group_exhibition_link_image');
-    if (image) {
-      image.style.left = '0';
-      image.style.top = '0';
-    }
+  ongoingLinks.forEach(function (item) {
+    console.log(item);
+    item === null || item === void 0 ? void 0 : item.addEventListener('mousemove', function (event) {
+      var target = event.currentTarget;
+      var newX = event.clientX;
+      var newY = event.clientY;
+      var image = target.querySelector('.al_group_exhibition_link_image');
+      if (image) {
+        var imageLeft = newX - image.offsetWidth;
+        if (imageLeft < 0) {
+          imageLeft = 0;
+        }
+        image.style.left = imageLeft + 'px';
+        image.style.top = newY + 'px';
+      }
+    });
+    item === null || item === void 0 ? void 0 : item.addEventListener('mouseleave', function (event) {
+      var target = event.currentTarget;
+      var image = target.querySelector('.al_group_exhibition_link_image');
+      if (image) {
+        image.style.left = '0';
+        image.style.top = '0';
+      }
+    });
+  });
+  motionLinks.forEach(function (item) {
+    console.log(item);
+    item === null || item === void 0 ? void 0 : item.addEventListener('mousemove', function (event) {
+      var target = event.currentTarget;
+      var newX = event.clientX;
+      var newY = event.clientY;
+      var image = target.querySelector('.al_motion_link_image');
+      if (image) {
+        var imageLeft = newX - image.offsetWidth;
+        if (imageLeft < 0) {
+          imageLeft = 0;
+        }
+        image.style.left = imageLeft + 'px';
+        image.style.top = newY + 'px';
+      }
+    });
+    item === null || item === void 0 ? void 0 : item.addEventListener('mouseleave', function (event) {
+      var target = event.currentTarget;
+      var image = target.querySelector('.al_motion_link_image');
+      if (image) {
+        image.style.left = '0';
+        image.style.top = '0';
+      }
+    });
   });
 });
 
@@ -3833,6 +4134,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _splidejs_splide__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @splidejs/splide */ "./node_modules/@splidejs/splide/dist/js/splide.esm.js");
 /* harmony import */ var _splidejs_splide_css_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @splidejs/splide/css/core */ "./node_modules/@splidejs/splide/dist/css/splide-core.min.css");
+/* harmony import */ var _splidejs_splide_extension_url_hash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @splidejs/splide-extension-url-hash */ "./node_modules/@splidejs/splide-extension-url-hash/dist/js/splide-extension-url-hash.esm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
@@ -3840,6 +4142,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
 
 
 var Gallery = /*#__PURE__*/function () {
@@ -3857,18 +4160,40 @@ var Gallery = /*#__PURE__*/function () {
     value: function init() {
       var element = document.getElementById(this.wrapperId);
       if (!element) return;
-      this.gallery = new _splidejs_splide__WEBPACK_IMPORTED_MODULE_0__["default"](element, this.options).mount();
+      this.gallery = new _splidejs_splide__WEBPACK_IMPORTED_MODULE_0__["default"](element, this.options).mount({
+        URLHash: _splidejs_splide_extension_url_hash__WEBPACK_IMPORTED_MODULE_2__.URLHash
+      });
       // this.carousel = element ? new Glider(element, this.options) : null;
+    }
+  }, {
+    key: "getLength",
+    value: function getLength() {
+      var _this$gallery;
+      return (_this$gallery = this.gallery) === null || _this$gallery === void 0 ? void 0 : _this$gallery.length;
+    }
+  }, {
+    key: "getCurrentIndex",
+    value: function getCurrentIndex() {
+      var _this$gallery2;
+      return (_this$gallery2 = this.gallery) === null || _this$gallery2 === void 0 ? void 0 : _this$gallery2.Components.Controller.getIndex();
     }
   }, {
     key: "next",
     value: function next() {
-      // this.glider?.scrollItem(1, true);
+      var _this$gallery3;
+      (_this$gallery3 = this.gallery) === null || _this$gallery3 === void 0 ? void 0 : _this$gallery3.go('>');
     }
   }, {
     key: "prev",
     value: function prev() {
-      // this.glider?.scrollItem(-1, true);
+      var _this$gallery4;
+      (_this$gallery4 = this.gallery) === null || _this$gallery4 === void 0 ? void 0 : _this$gallery4.go('<');
+    }
+  }, {
+    key: "on",
+    value: function on(eventName, callback) {
+      var _this$gallery5;
+      (_this$gallery5 = this.gallery) === null || _this$gallery5 === void 0 ? void 0 : _this$gallery5.on(eventName, callback);
     }
   }, {
     key: "destroy",
