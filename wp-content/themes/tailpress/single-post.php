@@ -15,9 +15,9 @@
       <?php $images = get_field('gallery');
       if ($images): ?>
         <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          <?php foreach ($images as $image): ?>
-            <li class="flex items-center justify-center border aspect-square">
-              <a class="block w-full h-full aspect-square" href="<?php echo esc_url($image['url']); ?>">
+          <?php $indx1 = 0; foreach ($images as $image): $indx1++ ?>
+            <li class="flex items-center justify-center aspect-square">
+              <a class="block w-full h-full aspect-square" href="<?php echo the_permalink() . '#slide_' . $indx1 ?>">
                 <img class="object-contain w-full h-full" loading="lazy" alt="<?php echo esc_attr($image['alt']); ?>"
                   src="<?php echo esc_url($image['sizes']['lqip']); ?>"
                   data-srcset="<?php echo esc_url($image['sizes']['thumbnail']); ?> 150w, <?php echo esc_url($image['sizes']['thumbnail']); ?> 300w, <?php echo esc_url($image['sizes']['medium']); ?> 1024w"
@@ -59,8 +59,8 @@
       <section id="andrasladocsi_gallery" class="splide" aria-label="Gallery">
         <div class="splide__track">
           <ul class="splide__list">
-            <?php foreach ($images as $key=>$image): ?>
-              <li class="flex items-start justify-center splide__slide max-h-[75vh] h-[75vh]" data-splide-hash="<?php echo 'slide_' . $key  ?>">
+            <?php $indx2 = 0; foreach ($images as $key=>$image): $indx2++; ?>
+              <li class="flex items-start justify-center splide__slide max-h-[90vh] h-[90vh]" data-splide-hash="<?php echo 'slide_' . $indx2 ?>">
                 <img class="object-contain w-auto h-full" loading="lazy" alt="<?php echo esc_attr($image['alt']); ?>"
                   src="<?php echo esc_url($image['sizes']['lqip']); ?>"
                   data-srcset="<?php echo esc_url($image['sizes']['thumbnail']); ?> 150w, <?php echo esc_url($image['sizes']['medium']); ?> 300w, <?php echo esc_url($image['sizes']['medium_large']); ?> 768w, <?php echo esc_url($image['sizes']['large']); ?> 1024w"

@@ -44,7 +44,7 @@ function publications_cpt() {
 		'label'                 => __( 'Publications', 'text_domain' ),
 		'description'           => __( 'Post Type Description', 'text_domain' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title' ),
+		'supports'              => array( 'title', 'thumbnail' ),
 		'taxonomies'            => array(),
 		'hierarchical'          => false,
 		'public'                => true,

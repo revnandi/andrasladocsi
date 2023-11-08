@@ -14,7 +14,7 @@ if ($query->have_posts()): ?>
     <h2 class="font-display">Ongoing Projects</h2>
     <?php while ($query->have_posts()):
       $query->the_post(); ?>
-      <div class="flex inline-block italic al_group_exhibition_link group">
+      <div class="flex inline-block italic al_hoverable_link group">
         <svg xmlns="http://www.w3.org/2000/svg" width="14.172" height="9.293" viewBox="0 0 3.75 2.459"
           class="h-full mx-2 rotate-180">
           <path fill="#000 icc-color(Display,0,0,0)"
@@ -26,7 +26,7 @@ if ($query->have_posts()): ?>
         </a>
         <?php if (has_post_thumbnail()): ?>
           <div
-            class="absolute hidden w-32 h-32 overflow-hidden border al_group_exhibition_link_image group-hover:block group md:col-span-5 aspect-wide-header aspect-square border-turquoise">
+            class="absolute hidden w-32 h-32 overflow-hidden border al_hoverable_link_image group-hover:block group md:col-span-5 aspect-wide-header aspect-square border-turquoise">
             <img class="object-cover w-full h-full" loading="lazy"
               src="<?php echo get_the_post_thumbnail_url(null, 'lqip') ?>"
               data-srcset="<?php echo get_the_post_thumbnail_url(null, 'thumbnail') ?> 150w, <?php echo get_the_post_thumbnail_url(null, 'thumbnail') ?> 300w, <?php echo get_the_post_thumbnail_url(null, 'medium') ?> 1024w"

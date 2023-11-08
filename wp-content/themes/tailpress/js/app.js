@@ -4047,12 +4047,14 @@ window.addEventListener('load', function () {
   // this.setInterval(() => gallery.next(), 1000)
   var counterCurrent = this.document.getElementById('andrasladocsi_gallery_counter_current');
   var counterTotal = this.document.getElementById('andrasladocsi_gallery_counter_total');
-  var ongoingLinks = this.document.querySelectorAll('.al_group_exhibition_link');
-  var motionLinks = this.document.querySelectorAll('.al_motion_link');
+  var hoverableLinks = this.document.querySelectorAll('.al_hoverable_link');
   if (counterTotal) counterTotal.innerHTML = gallery.getLength().toString();
   if (counterCurrent) counterCurrent.innerHTML = '1';
   gallery.on('move', function (index, prev, dest) {
     if (counterCurrent) counterCurrent.innerHTML = (index + 1).toString();
+  });
+  gallery.on('ready', function () {
+    console.log('gooo');
   });
   gallery.on('click', function (slide, event) {
     console.log(slide);
@@ -4067,50 +4069,29 @@ window.addEventListener('load', function () {
       gallery.next();
     }
   });
-  ongoingLinks.forEach(function (item) {
+  hoverableLinks.forEach(function (item) {
     console.log(item);
     item === null || item === void 0 ? void 0 : item.addEventListener('mousemove', function (event) {
       var target = event.currentTarget;
       var newX = event.clientX;
       var newY = event.clientY;
-      var image = target.querySelector('.al_group_exhibition_link_image');
+      var image = target.querySelector('.al_hoverable_link_image');
       if (image) {
-        var imageLeft = newX - image.offsetWidth;
+        console.log({
+          newX: newX,
+          offset: image.offsetWidth
+        });
+        var imageLeft = newX + 10;
         if (imageLeft < 0) {
           imageLeft = 0;
         }
         image.style.left = imageLeft + 'px';
-        image.style.top = newY + 'px';
+        image.style.top = newY + 16 + 'px';
       }
     });
     item === null || item === void 0 ? void 0 : item.addEventListener('mouseleave', function (event) {
       var target = event.currentTarget;
-      var image = target.querySelector('.al_group_exhibition_link_image');
-      if (image) {
-        image.style.left = '0';
-        image.style.top = '0';
-      }
-    });
-  });
-  motionLinks.forEach(function (item) {
-    console.log(item);
-    item === null || item === void 0 ? void 0 : item.addEventListener('mousemove', function (event) {
-      var target = event.currentTarget;
-      var newX = event.clientX;
-      var newY = event.clientY;
-      var image = target.querySelector('.al_motion_link_image');
-      if (image) {
-        var imageLeft = newX - image.offsetWidth;
-        if (imageLeft < 0) {
-          imageLeft = 0;
-        }
-        image.style.left = imageLeft + 'px';
-        image.style.top = newY + 'px';
-      }
-    });
-    item === null || item === void 0 ? void 0 : item.addEventListener('mouseleave', function (event) {
-      var target = event.currentTarget;
-      var image = target.querySelector('.al_motion_link_image');
+      var image = target.querySelector('.al_hoverable_link_image');
       if (image) {
         image.style.left = '0';
         image.style.top = '0';

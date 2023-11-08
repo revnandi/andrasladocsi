@@ -606,14 +606,14 @@ video {
 .h-4{
     height: 1rem;
 }
-.h-\[75vh\]{
-    height: 75vh;
+.h-\[90vh\]{
+    height: 90vh;
 }
 .h-full{
     height: 100%;
 }
-.max-h-\[75vh\]{
-    max-height: 75vh;
+.max-h-\[90vh\]{
+    max-height: 90vh;
 }
 .min-h-screen{
     min-height: 100vh;
@@ -632,6 +632,10 @@ video {
 }
 .w-full{
     width: 100%;
+}
+.w-fit{
+    width: -moz-fit-content;
+    width: fit-content;
 }
 .max-w-sm{
     max-width: 24rem;
@@ -666,6 +670,9 @@ video {
 }
 .items-center{
     align-items: center;
+}
+.items-baseline{
+    align-items: baseline;
 }
 .justify-center{
     justify-content: center;
@@ -749,7 +756,7 @@ video {
     text-align: center;
 }
 .font-cursive{
-    font-family: Cormorant Garamond, cursive;
+    font-family: Cormorant Infant, cursive;
 }
 .font-display{
     font-family: Instrument Sans, sans-serif;

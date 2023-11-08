@@ -23,7 +23,7 @@ module.exports = {
             colors: tailpress.colorMapper(tailpress.theme('settings.color.palette', theme)),
             fontSize: tailpress.fontSizeMapper(tailpress.theme('settings.typography.fontSizes', theme)),
             fontFamily: {
-                'cursive': ['Cormorant Garamond', 'cursive'],
+                'cursive': ['Cormorant Infant', 'cursive'],
                 'display': ['Instrument Sans', 'sans-serif'],
             },
         },

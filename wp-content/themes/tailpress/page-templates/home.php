@@ -8,6 +8,7 @@
   </section>
   <?php get_template_part('/template-parts/ongoing-project') ?>
   <?php get_template_part('/template-parts/motion') ?>
+  <?php get_template_part('/template-parts/books') ?>
   <?php get_template_part('/template-parts/education') ?>
   <?php get_template_part('/template-parts/group-exhibitions') ?>
   <?php get_template_part('/template-parts/awards') ?>
