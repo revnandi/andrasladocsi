@@ -14,7 +14,7 @@
     <div class="px-1 mt-6 font-cursive ">
       <?php $images = get_field('gallery');
       if ($images): ?>
-        <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-col-5">
           <?php $indx1 = 0; foreach ($images as $image): $indx1++ ?>
             <li class="flex items-center justify-center aspect-square">
               <a class="block w-full h-full aspect-square" href="<?php echo the_permalink() . '#slide_' . $indx1 ?>">

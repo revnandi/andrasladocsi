@@ -1,0 +1,27 @@
+/*!
+ * Splide.js
+ * Version  : 4.1.4
+ * License  : MIT
+ * Copyright: 2022 Naotoshi Fujita
+ */
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/**
+ * Encodes an RGBA image to a PNG data URI. RGB should not be premultiplied by A.
+ *
+ * @remarks
+ * This is optimized for speed and simplicity and does not optimize for size
+ * at all. This doesn't do any compression (all values are stored uncompressed).
+ *
+ * @see https://github.com/evanw/thumbhash
+ * @author Evan Wallace
+ * @license MIT
+ */

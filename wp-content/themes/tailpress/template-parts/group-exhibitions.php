@@ -11,7 +11,7 @@ $posts = get_posts($args);
 
 if ($query->have_posts()): ?>
   <section class="mb-6">
-    <h2 class="font-display">Group Exhibitions</h2>
+    <h2 class="text-lg font-display">Group Exhibitions</h2>
     <?php while ($query->have_posts()): $query->the_post(); ?>
       <div class="italic">
         <?php the_field('year'); ?>

@@ -20,7 +20,7 @@
 
 		<header>
 			<?php if (is_front_page()) { ?>
-				<div class="fixed top-0 left-0 flex items-center justify-between w-full px-1">
+				<div class="fixed top-0 left-0 z-10 flex items-center justify-between w-full px-1 bg-white">
 					<div>
 						<?php if (has_custom_logo()) { ?>
 							<?php the_custom_logo(); ?>

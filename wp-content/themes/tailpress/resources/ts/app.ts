@@ -5,6 +5,7 @@ import '@justinribeiro/lite-youtube';
 window.addEventListener('load', function () {
   lazyLoad();
 
+
   const gallery = new Gallery(
     'andrasladocsi_gallery',
     {
@@ -13,26 +14,24 @@ window.addEventListener('load', function () {
       pagination: false,
       arrows: false,
       perPage: 1,
-      classes: {
-        // pagination: 'z-10 absolute bottom-6 left-11 flex justify-center py-2 space-x-2 [&>li]:h-fit [&>li]:flex',
-        // page: 'w-4 h-4 bg-black rounded-full [&.is-active]:bg-turquoise'
-      }
-      // dots: '#lt_small_carousel_dots'
     }
   );
 
   gallery.init();
 
-  console.log(gallery.getLength())
-  // this.setInterval(() => gallery.next(), 1000)
 
   const counterCurrent = this.document.getElementById('andrasladocsi_gallery_counter_current')
   const counterTotal = this.document.getElementById('andrasladocsi_gallery_counter_total')
   const hoverableLinks = this.document.querySelectorAll('.al_hoverable_link')
 
   if (counterTotal) counterTotal.innerHTML = gallery.getLength()!.toString()
-  if (counterCurrent) counterCurrent.innerHTML = '1'
-
+  if (counterCurrent) {
+    if(counterTotal && gallery.getCurrentIndex() === 0) {
+      counterCurrent.innerHTML = '1'
+    } else if(counterCurrent && gallery.getCurrentIndex()! > 0 ) {
+      counterCurrent.innerHTML = (gallery.getCurrentIndex()! + 1).toString()
+    }
+  }
 
   gallery.on('move', (index, prev, dest) => {
     if (counterCurrent) counterCurrent.innerHTML = (index + 1).toString()
@@ -43,24 +42,24 @@ window.addEventListener('load', function () {
   })
 
   gallery.on('click', (slide, event) => {
-    console.log(slide)
     const target = event.target as HTMLElement;
     const rect = target.getBoundingClientRect();
     const clickedX = event.clientX - rect.left;
 
     if (clickedX < rect.width / 2) {
-      console.log('Left half clicked');
       gallery.prev()
     } else {
-      console.log('Right half clicked');
       gallery.next()
     }
   })
+
+
 
   hoverableLinks.forEach(item => {
     console.log(item)
     item?.addEventListener('mousemove', (event) => {
       const target = event.currentTarget as HTMLDivElement;
+      console.log(event.currentTarget)
       const newX = (event as MouseEvent).clientX;
       const newY = (event as MouseEvent).clientY;
       const image = target.querySelector('.al_hoverable_link_image') as HTMLImageElement

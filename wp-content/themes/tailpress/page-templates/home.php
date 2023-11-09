@@ -1,10 +1,12 @@
-<?php /* Template Name: Home */ ?>
+<?php /* Template Name: Home */?>
 
 <?php get_header(); ?>
 
 <div class="px-1 my-8 font-cursive">
-  <section>
-    <?php the_content() ?>
+  <section class="flex flex-col mb-6 md:flex-row md:flex-wrap">
+    <div class="[&>h1]:font-display [&>h2]:font-display">
+      <?php the_content() ?>
+    </div>
   </section>
   <?php get_template_part('/template-parts/ongoing-project') ?>
   <?php get_template_part('/template-parts/motion') ?>
