@@ -14,8 +14,14 @@ if ($query->have_posts()): ?>
     <h2 class="text-lg font-display">Publications</h2>
     <div class="flex flex-col items-baseline w-fit">
       <?php while ($query->have_posts()): $query->the_post(); ?>
-        <div class="italic rinline-block al_hoverable_link group">
-        <a href="<?php the_field('link') ?>" class="inline-block">
+        <div class="inline-block italic al_hoverable_link group">
+        <?php
+          $link = get_field('link');
+          $link_url = $link['url'];
+          $link_title = $link['title'];
+          $link_target = $link['target'] ? $link['target'] : '_self';
+          ?>
+          <a class="button" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>" class="inline-block">
             <?php the_title(); ?>, <?php the_field('year') ?>
         </a>
           <?php if (has_post_thumbnail()): ?>
