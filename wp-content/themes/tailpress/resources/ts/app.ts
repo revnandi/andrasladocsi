@@ -14,11 +14,11 @@ window.addEventListener('load', function () {
       pagination: false,
       arrows: false,
       perPage: 1,
+      lazyLoad: true,
     }
   );
 
   gallery.init();
-
 
   const counterCurrent = this.document.getElementById('andrasladocsi_gallery_counter_current')
   const counterTotal = this.document.getElementById('andrasladocsi_gallery_counter_total')
