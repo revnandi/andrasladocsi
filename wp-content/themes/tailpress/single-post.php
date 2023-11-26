@@ -61,10 +61,13 @@
           <ul class="splide__list">
             <?php $indx2 = 0; foreach ($images as $key=>$image): $indx2++; ?>
               <li class="flex items-start justify-center splide__slide max-h-[90vh] h-[90vh]" data-splide-hash="<?php echo 'slide_' . $indx2 ?>">
-                <img class="object-contain w-auto h-full" loading="lazy" alt="<?php echo esc_attr($image['alt']); ?>"
-                  src="<?php echo esc_url($image['sizes']['lqip']); ?>"
-                  data-srcset="<?php echo esc_url($image['sizes']['thumbnail']); ?> 150w, <?php echo esc_url($image['sizes']['medium']); ?> 300w, <?php echo esc_url($image['sizes']['medium_large']); ?> 768w, <?php echo esc_url($image['sizes']['large']); ?> 1024w"
-                  sizes="(max-width: 150px) 150px, (max-width: 300px) 300px, (max-width: 768px) 768px, 1024px" />
+                <img
+                  class="object-contain w-auto h-full"
+                  alt="<?php echo esc_attr($image['alt']); ?>"
+                  data-splide-lazy="<?php echo esc_url($image['sizes']['2048x2048']); ?>"
+                  data-splide-lazy-srcset="<?php echo esc_url($image['sizes']['thumbnail']); ?> 150w, <?php echo esc_url($image['sizes']['medium']); ?> 300w, <?php echo esc_url($image['sizes']['medium_large']); ?> 768w, <?php echo esc_url($image['sizes']['large']); ?> 1024w, <?php echo esc_url($image['sizes']['1536x1536']); ?> 1536w, <?php echo esc_url($image['sizes']['2048x2048']); ?> 2048w"
+                  sizes="(max-width: 150px) 150px, (max-width: 300px) 300px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1536px) 1536px, 2048px"
+                />
               </li>
             <?php endforeach; ?>
           </ul>
